@@ -2,17 +2,17 @@ package local;
 
 public class OrderReceived extends AbstractEvent {
 
-    private Long id;
+    private Long orderId;
 
     public OrderReceived(){
         super();
     }
 
-    public Long getId() {
-        return id;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 }

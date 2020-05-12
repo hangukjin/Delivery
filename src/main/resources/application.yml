@@ -25,10 +25,10 @@ spring:
       bindings:
         event-in:
           group: Delivery
-          destination: local
+          destination: cafeforme
           contentType: application/json
         event-out:
-          destination: local
+          destination: cafeforme
           contentType: application/json
 
 logging:
@@ -57,8 +57,8 @@ spring:
       bindings:
         event-in:
           group: Delivery
-          destination: local
+          destination: cafeforme
           contentType: application/json
         event-out:
-          destination: local
+          destination: cafeforme
           contentType: application/json

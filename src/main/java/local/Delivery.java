@@ -9,34 +9,31 @@ import java.util.List;
 public class Delivery {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
     private Long orderId;
-    private Long product;
+    private String product;
     private Integer qty;
+    private String status;
 
     @PrePersist
+    @PostPersist
+    @PostUpdate
     public void onPrePersist(){
-        OrderReceived orderReceived = new OrderReceived();
-        BeanUtils.copyProperties(this, orderReceived);
-        orderReceived.publishAfterCommit();
 
+        if ("receive".equals(this.getStatus())) {
+            OrderReceived orderReceived = new OrderReceived();
+            BeanUtils.copyProperties(this, orderReceived);
+            orderReceived.publishAfterCommit();
+        }
 
-        OrderRejected orderRejected = new OrderRejected();
-        BeanUtils.copyProperties(this, orderRejected);
-        orderRejected.publishAfterCommit();
-
-
+        if ("reject".equals(this.getStatus())) {
+            OrderRejected orderRejected = new OrderRejected();
+            BeanUtils.copyProperties(this, orderRejected);
+            orderRejected.publishAfterCommit();
+        }
     }
 
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
     public Long getOrderId() {
         return orderId;
     }
@@ -44,11 +41,11 @@ public class Delivery {
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
-    public Long getProduct() {
+    public String getProduct() {
         return product;
     }
 
-    public void setProduct(Long product) {
+    public void setProduct(String product) {
         this.product = product;
     }
     public Integer getQty() {
@@ -59,7 +56,13 @@ public class Delivery {
         this.qty = qty;
     }
 
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
 
 }
