@@ -12,6 +12,7 @@ public class Delivery {
     private Long orderId;
     private String product;
     private Integer qty;
+    private Integer price;
     private String status;
 
     @PostUpdate
@@ -60,5 +61,11 @@ public class Delivery {
         this.status = status;
     }
 
+    public Integer getPrice() {
+        return price;
+    }
 
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 }

@@ -24,6 +24,7 @@ public class PolicyHandler{
             delivery.setOrderId(paymentCompleted.getOrderId());
             delivery.setProduct(paymentCompleted.getProduct());
             delivery.setQty(paymentCompleted.getQty());
+            delivery.setPrice(paymentCompleted.getPrice());
             delivery.setStatus("order_get");
 
             deliveryRepository.save(delivery);
