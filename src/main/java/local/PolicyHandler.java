@@ -24,26 +24,26 @@ public class PolicyHandler{
             delivery.setOrderId(paymentCompleted.getOrderId());
             delivery.setProduct(paymentCompleted.getProduct());
             delivery.setQty(paymentCompleted.getQty());
-            delivery.setStatus("init");
+            delivery.setStatus("order_get");
 
             deliveryRepository.save(delivery);
         }
     }
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverOrderCancelRequested_OrderCancelromOrder(@Payload OrderCancelRequested orderCancelRequested){
+    public void wheneverOrderCancelRequested_OrderCancelFromOrder(@Payload OrderCancelRequested orderCancelRequested){
 
         if(orderCancelRequested.isMe()){
-            if ("init".equals(deliveryRepository.findById(orderCancelRequested.getOrderId()).get().getStatus())){
+            Delivery delivery = deliveryRepository.findById(orderCancelRequested.getOrderId()).get();
+            if ("order_get".equals(delivery.getStatus())){
                 // 취소할 수 있는 상태
-                deliveryRepository.deleteById(orderCancelRequested.getOrderId());
                 OrderCancelConfirmed orderCancelConfirmed = new OrderCancelConfirmed();
                 orderCancelConfirmed.setOrderId(orderCancelRequested.getOrderId());
                 orderCancelConfirmed.publish();
-
             }
             else{
                 // 취소할 수 없는 상태
+                // Customer 쪽은 곧 Received로 바뀔 것
 
             }
 

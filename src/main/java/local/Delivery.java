@@ -14,11 +14,8 @@ public class Delivery {
     private Integer qty;
     private String status;
 
-    @PrePersist
-    @PostPersist
     @PostUpdate
-    public void onPrePersist(){
-
+    public void onPostUpdate(){
         if ("receive".equals(this.getStatus())) {
             OrderReceived orderReceived = new OrderReceived();
             BeanUtils.copyProperties(this, orderReceived);
@@ -31,7 +28,6 @@ public class Delivery {
             orderRejected.publishAfterCommit();
         }
     }
-
 
 
     public Long getOrderId() {

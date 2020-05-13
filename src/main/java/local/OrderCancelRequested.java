@@ -2,7 +2,6 @@ package local;
 
 public class OrderCancelRequested extends AbstractEvent {
 
-    private Long id;
     private Long orderId;
     private String product;
     private Integer qty;
@@ -12,15 +11,6 @@ public class OrderCancelRequested extends AbstractEvent {
 
     public OrderCancelRequested(){
         super();
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 
