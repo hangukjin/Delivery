@@ -40,6 +40,9 @@ public class PolicyHandler{
                 OrderCancelConfirmed orderCancelConfirmed = new OrderCancelConfirmed();
                 orderCancelConfirmed.setOrderId(orderCancelRequested.getOrderId());
                 orderCancelConfirmed.publish();
+
+                delivery.setStatus("order_canceled");
+                deliveryRepository.save(delivery);
             }
             else{
                 // 취소할 수 없는 상태
